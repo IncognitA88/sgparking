@@ -1,9 +1,23 @@
+// const http = require('http');
+// var XMLHttpRequest = require('xhr2');
+
+// const hostname = '127.0.0.1';
+// const port ='3000';
+
+// const server = http.createServer((req,res) => {
+//     res.statusCode = 200;
+//     res.end();
+// })
+
+// server.listen(port, hostname, () => {
+//     console.log(`server running at http://${hostname}:${port}/`);
+// });
+
 //api url
 const xhr = new XMLHttpRequest();
 const url = "https://api.data.gov.sg/v1/transport/carpark-availability";
 
 xhr.open("GET", url);
-// xhr.setRequestHeader('2022-10-10T10%3A10%3A10', dateTime);
 xhr.send();
 
 xhr.onreadystatechange = function() {
@@ -19,8 +33,7 @@ function show(data) {
     const smallLot = [], mediumLot = [], bigLot = [], largeLot = []
 
     carpark.forEach(cp => {
-        // availableLots.push(cp.carpark_info[0].lots_available);   
-        
+        //categorize carparks by sizes        
         if (cp.carpark_info[0].total_lots <100) {
             cp.carpark_info[0]['size'] = "small";
             smallLot.push(cp)
@@ -111,10 +124,9 @@ function show(data) {
     }
     for (let i=0; i<largeMax.length;i++) {
         largeCPMax.push(largeMax[i].carpark_number)
-    }
-    console.log(largeLots)
-    console.log(largeCPMax)
+    } 
 
+    // simple create table func
     let tab = 
     `<tr>
         <th> Carpark Category </th>
@@ -163,6 +175,9 @@ function show(data) {
 
           
 }
+
+
+
 
 // function tabulate(data) {
 //     const carpark = data.items[0].carpark_data;
